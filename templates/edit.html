@@ -1,0 +1,38 @@
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+
+<title>TODOリスト</title>
+</head>
+<body>
+    <h1>Task edit</h1>
+
+
+    <form method="post" action="{% if type == 'add' %}{{ url_for('add_task')}}{% else %}{{ url_for('update_task', id=todo['id'])}}{% endif %}">
+    {% if error_list %}
+    <ul>
+      {% for v in error_list %}
+        <li>{{ v }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+    <p>Task<br/><input type="text" name="name" value="{{ todo['name'] }}"/></p>
+    <p>Limit<br/><input type="text" name="duedate" value="{{ todo['duedate'] }}"/></p>
+    {% if type == 'edit' %}
+    <p>Status<br/><select name="status">
+      <option value="未完了">Waiting</option>
+      <option value="完了済"{% if todo["status"]=="完了済" %}selected{% endif %}>Done</option>
+    </select></p>
+    {% endif %}
+    <p>text<br/><input type="text" name="memo" value="{{ todo['memo']}}" size="60"/></p>
+    {% if type == 'add' %}
+    <button type="submit">Add New Task</button>
+    {% else %}
+    <button type="submit">Task Update</button>
+    {% endif %}
+    </form>
+    <br/>
+    <a href="/">Top</a>
+</body>
+</html>

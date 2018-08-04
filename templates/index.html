@@ -1,0 +1,31 @@
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+
+
+<title>TODOリスト</title>
+</head>
+<body>
+  <h1>ToDo</h1>
+  <table>
+    <tr>
+      <th>Task</th>
+      <th>Limit</th>
+      <th>Status</th>
+      <th>Text</th>
+      <th></th>
+    </tr>
+    {% for v in todo_list %}
+    <tr>
+      <td><a href="{{ url_for('edit', id=v['id'])}}">{{ v['name']}}</a></td>
+      <td>{{ v['duedate'] }}</td>
+      <td>{{ v['status'] }}</td>
+      <td>{{ v['memo'] }}</td>
+      <td><a href="{url_for('delete', id=v['id'])}">Delete</a></td>
+    </tr>
+    {%  endfor %}
+  </table>
+  <h3><a href="{{ url_for('add_task')}}">New Task</a></h3>
+</body>
+</html>
